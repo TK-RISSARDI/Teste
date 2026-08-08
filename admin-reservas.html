@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Painel de Reservas — Pousada Constelação</title>
+<meta name="robots" content="noindex, nofollow">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --forest:#2F4A3A; --olive:#5D7258; --beige:#E8DFD1;
+    --white-warm:#FAF8F4; --wood:#7A5B45; --gold:#B89A68;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--white-warm);color:var(--forest);font-family:'Work Sans',sans-serif;font-weight:300;padding:48px 24px;}
+  .wrap{max-width:1100px;margin:0 auto;}
+  header{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;margin-bottom:40px;border-bottom:1px solid rgba(47,74,58,.15);padding-bottom:28px;}
+  h1{font-family:'Fraunces',serif;font-weight:400;font-size:32px;}
+  h1 span{color:var(--gold);font-style:italic;}
+  .sub{font-size:13px;color:var(--olive);margin-top:6px;}
+  .toolbar{display:flex;gap:12px;align-items:center;}
+  .toolbar input{border:1px solid rgba(47,74,58,.2);padding:10px 14px;font-family:inherit;font-size:13px;border-radius:2px;min-width:200px;}
+  .btn{padding:10px 18px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;border-radius:2px;background:var(--forest);color:var(--white-warm);cursor:pointer;border:none;font-family:inherit;}
+  .btn:hover{background:var(--olive);}
+  .status{font-size:13px;color:var(--olive);margin-bottom:20px;}
+  .status.error{color:#a3453a;}
+  table{width:100%;border-collapse:collapse;background:#fff;box-shadow:0 8px 30px rgba(20,30,24,.06);}
+  thead th{
+    text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.1em;
+    color:var(--gold);padding:16px 18px;border-bottom:1px solid rgba(47,74,58,.12);font-weight:500;
+  }
+  tbody td{padding:16px 18px;border-bottom:1px solid rgba(47,74,58,.08);font-size:14px;vertical-align:top;}
+  tbody tr:hover{background:var(--beige);}
+  .empty, .loading{padding:60px 20px;text-align:center;color:var(--olive);font-size:14px;}
+  .badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:11px;background:var(--beige);color:var(--forest);}
+  .login-wrap{max-width:360px;margin:120px auto;text-align:left;}
+  .login-wrap h1{font-size:26px;margin-bottom:8px;}
+  .login-wrap p{font-size:13px;color:var(--olive);margin-bottom:28px;}
+  .login-wrap label{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--olive);margin-bottom:6px;}
+  .login-wrap input{width:100%;border:1px solid rgba(47,74,58,.2);padding:11px 14px;font-family:inherit;font-size:14px;border-radius:2px;margin-bottom:18px;}
+  .login-wrap .btn{width:100%;padding:13px;}
+  .logout-btn{background:transparent;border:1px solid rgba(47,74,58,.25);color:var(--forest);}
+  .logout-btn:hover{background:var(--beige);}
+  @media(max-width:760px){
+    table, thead, tbody, tr, td{display:block;}
+    thead{display:none;}
+    tbody tr{margin-bottom:16px;border:1px solid rgba(47,74,58,.1);}
+    tbody td{border-bottom:none;padding:10px 18px;}
+    tbody td::before{content:attr(data-label);display:block;font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--gold);margin-bottom:4px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="login-wrap" id="loginWrap">
+  <h1>Painel de <span style="color:var(--gold);font-style:italic;">Reservas</span></h1>
+  <p>Entre com o login de administrador da Pousada Constelação para ver as reservas.</p>
+  <form id="loginForm">
+    <label for="loginEmail">E-mail</label>
+    <input type="email" id="loginEmail" required autocomplete="username">
+    <label for="loginPassword">Senha</label>
+    <input type="password" id="loginPassword" required autocomplete="current-password">
+    <button type="submit" class="btn" id="loginBtn">Entrar</button>
+    <p class="status error" id="loginStatus" style="margin-top:16px;"></p>
+  </form>
+</div>
+
+<div class="wrap" id="dashboardWrap" style="display:none;">
+  <header>
+    <div>
+      <h1>Painel de <span>Reservas</span></h1>
+      <div class="sub">Pousada Constelação — todas as solicitações recebidas pelo site</div>
+    </div>
+    <div class="toolbar">
+      <input type="text" id="search" placeholder="Buscar por nome...">
+      <button class="btn" id="refreshBtn">Atualizar</button>
+      <button class="btn logout-btn" id="logoutBtn">Sair</button>
+    </div>
+  </header>
+
+  <p class="status" id="status">Carregando reservas...</p>
+
+  <table id="table" style="display:none;">
+    <thead>
+      <tr>
+        <th>Hóspede</th>
+        <th>Contato</th>
+        <th>Check-in</th>
+        <th>Check-out</th>
+        <th>Hóspedes</th>
+        <th>Recebida em</th>
+      </tr>
+    </thead>
+    <tbody id="tbody"></tbody>
+  </table>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script>
+  // Mesmo projeto Supabase usado no site principal (pousada-constelacao.html)
+  const SUPABASE_URL = 'https://glisbzzzewwexevzxfkk.supabase.co';
+  const SUPABASE_ANON_KEY = 'sb_publishable_QbmQVc70qdsN3Y5F3GM0pQ_TJBNpUlU';
+
+  const statusEl = document.getElementById('status');
+  const table = document.getElementById('table');
+  const tbody = document.getElementById('tbody');
+  const searchEl = document.getElementById('search');
+  const loginWrap = document.getElementById('loginWrap');
+  const dashboardWrap = document.getElementById('dashboardWrap');
+  const loginForm = document.getElementById('loginForm');
+  const loginStatus = document.getElementById('loginStatus');
+  const loginBtn = document.getElementById('loginBtn');
+  let allRows = [];
+
+  const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+  // ---- Login gate: only a logged-in admin user can see reservations ----
+  loginForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    loginStatus.textContent = '';
+    loginBtn.disabled = true;
+    loginBtn.textContent = 'Entrando...';
+    const { error } = await supabaseClient.auth.signInWithPassword({
+      email: document.getElementById('loginEmail').value.trim(),
+      password: document.getElementById('loginPassword').value
+    });
+    loginBtn.disabled = false;
+    loginBtn.textContent = 'Entrar';
+    if (error) {
+      loginStatus.textContent = 'E-mail ou senha incorretos.';
+      return;
+    }
+    showDashboard();
+  });
+
+  document.getElementById('logoutBtn').addEventListener('click', async () => {
+    await supabaseClient.auth.signOut();
+    dashboardWrap.style.display = 'none';
+    loginWrap.style.display = 'block';
+  });
+
+  function showDashboard(){
+    loginWrap.style.display = 'none';
+    dashboardWrap.style.display = 'block';
+    loadReservations();
+  }
+
+  // If already logged in from a previous visit, skip straight to the dashboard
+  supabaseClient.auth.getSession().then(({ data }) => {
+    if (data.session) showDashboard();
+  });
+
+  function formatDate(d){
+    if(!d) return '—';
+    const [y,m,day] = d.split('-');
+    return `${day}/${m}/${y}`;
+  }
+  function formatDateTime(iso){
+    if(!iso) return '—';
+    const d = new Date(iso);
+    return d.toLocaleDateString('pt-BR') + ' às ' + d.toLocaleTimeString('pt-BR', {hour:'2-digit',minute:'2-digit'});
+  }
+
+  function render(rows){
+    tbody.innerHTML = '';
+    if(rows.length === 0){
+      table.style.display = 'none';
+      statusEl.textContent = 'Nenhuma reserva encontrada.';
+      statusEl.className = 'status';
+      return;
+    }
+    table.style.display = 'table';
+    statusEl.textContent = `${rows.length} reserva(s) encontrada(s).`;
+    statusEl.className = 'status';
+    rows.forEach(r => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td data-label="Hóspede">${r.guest_name || '—'}</td>
+        <td data-label="Contato">${r.guest_contact || '—'}</td>
+        <td data-label="Check-in"><span class="badge">${formatDate(r.check_in)}</span></td>
+        <td data-label="Check-out"><span class="badge">${formatDate(r.check_out)}</span></td>
+        <td data-label="Hóspedes">${r.guests || '—'}</td>
+        <td data-label="Recebida em">${formatDateTime(r.created_at)}</td>
+      `;
+      tbody.appendChild(tr);
+    });
+  }
+
+  async function loadReservations(){
+    statusEl.textContent = 'Carregando reservas...';
+    statusEl.className = 'status';
+    const { data, error } = await supabaseClient
+      .from('reservas')
+      .select('*')
+      .order('check_in', { ascending: true });
+
+    if(error){
+      console.error(error);
+      statusEl.textContent = 'Não foi possível carregar as reservas. Verifique a configuração do banco.';
+      statusEl.className = 'status error';
+      return;
+    }
+    allRows = data || [];
+    render(allRows);
+  }
+
+  searchEl.addEventListener('input', () => {
+    const q = searchEl.value.trim().toLowerCase();
+    render(allRows.filter(r => (r.guest_name || '').toLowerCase().includes(q)));
+  });
+  document.getElementById('refreshBtn').addEventListener('click', loadReservations);
+</script>
+</body>
+</html>
