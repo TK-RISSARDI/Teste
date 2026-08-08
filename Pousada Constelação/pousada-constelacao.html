@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CONSTELAÇÃO — Pousada de Montanha | Refúgio de luxo em meio à natureza</title>
+<meta name="description" content="Chalés de charme entre montanhas e mata preservada na Serra Gaúcha. Privacidade, conforto e experiências exclusivas para quem busca silêncio de verdade.">
+<meta name="keywords" content="pousada de luxo, chalés, hospedagem na natureza, Serra Gaúcha, Gramado, resort boutique">
+<meta property="og:title" content="CONSTELAÇÃO — Pousada de Montanha">
+<meta property="og:description" content="Onde o silêncio vira paisagem. Chalés de charme em meio à natureza preservada.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --forest:#2F4A3A;
+    --olive:#5D7258;
+    --beige:#E8DFD1;
+    --white-warm:#FAF8F4;
+    --wood:#7A5B45;
+    --gold:#B89A68;
+    --forest-rgb: 47,74,58;
+    --ease: cubic-bezier(.22,.61,.36,1);
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--white-warm);
+    color:var(--forest);
+    font-family:'Work Sans',sans-serif;
+    font-weight:300;
+    line-height:1.6;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  img{max-width:100%;display:block;}
+  a{color:inherit;text-decoration:none;}
+  ul{list-style:none;}
+  button{font-family:inherit;cursor:pointer;border:none;background:none;}
+  .container{max-width:1240px;margin:0 auto;padding:0 32px;}
+  h1,h2,h3,h4{font-family:'Fraunces',serif;font-weight:400;letter-spacing:-0.01em;}
+  .eyebrow{
+    font-family:'Work Sans',sans-serif;
+    text-transform:uppercase;
+    letter-spacing:0.28em;
+    font-size:11px;
+    font-weight:500;
+    color:var(--gold);
+    display:inline-block;
+    margin-bottom:18px;
+  }
+  ::selection{background:var(--gold);color:var(--white-warm);}
+  :focus-visible{outline:2px solid var(--gold);outline-offset:3px;}
+
+  /* ---------- reveal on scroll ---------- */
+  .reveal{opacity:0;transform:translateY(32px);transition:opacity 1s var(--ease),transform 1.1s var(--ease);}
+  .reveal.in-view{opacity:1;transform:translateY(0);}
+  .reveal-delay-1.in-view{transition-delay:.12s;}
+  .reveal-delay-2.in-view{transition-delay:.24s;}
+  .reveal-delay-3.in-view{transition-delay:.36s;}
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.001ms !important;transition-duration:0.001ms !important;scroll-behavior:auto !important;}
+    .reveal{opacity:1;transform:none;}
+  }
+
+  /* ---------- branch divider signature element ---------- */
+  .branch-divider{
+    width:100%;
+    display:flex;
+    justify-content:center;
+    padding:64px 0;
+    background:inherit;
+  }
+  .branch-divider svg{width:220px;height:auto;overflow:visible;}
+  .branch-divider path{
+    fill:none;
+    stroke:var(--gold);
+    stroke-width:1.4;
+    stroke-linecap:round;
+    stroke-dasharray:600;
+    stroke-dashoffset:600;
+    transition:stroke-dashoffset 2.2s var(--ease);
+  }
+  .branch-divider circle{
+    fill:var(--gold);
+    opacity:0;
+    transition:opacity .8s ease 1.6s;
+  }
+  .branch-divider.in-view path{stroke-dashoffset:0;}
+  .branch-divider.in-view circle{opacity:1;}
+
+  /* ---------- navbar ---------- */
+  .navbar{
+    position:fixed;top:0;left:0;width:100%;z-index:1000;
+    padding:28px 0;
+    transition:background .5s var(--ease),padding .5s var(--ease),box-shadow .5s var(--ease);
+  }
+  .navbar .container{display:flex;align-items:center;justify-content:space-between;}
+  .nav-logo{
+    font-family:'Fraunces',serif;font-size:20px;letter-spacing:0.06em;
+    color:var(--white-warm);transition:color .5s var(--ease);
+    white-space:nowrap;
+  }
+  .nav-logo span{color:var(--gold);}
+  .nav-links{display:flex;gap:40px;}
+  .nav-links a{
+    font-size:13px;letter-spacing:.05em;text-transform:uppercase;
+    color:var(--white-warm);opacity:.92;
+    position:relative;padding-bottom:4px;
+    transition:color .5s var(--ease);
+  }
+  .nav-links a::after{
+    content:'';position:absolute;left:0;bottom:0;height:1px;width:0;
+    background:var(--gold);transition:width .4s var(--ease);
+  }
+  .nav-links a:hover::after{width:100%;}
+  .nav-cta{
+    font-size:12px;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--forest);background:var(--gold);
+    padding:12px 24px;border-radius:2px;
+    transition:transform .35s var(--ease),background .35s ease;
+  }
+  .nav-cta:hover{transform:translateY(-2px);background:#c8ab7a;}
+  .nav-toggle{display:none;flex-direction:column;gap:5px;background:none;}
+  .nav-toggle span{width:26px;height:1px;background:var(--white-warm);transition:.4s;}
+
+  .navbar.scrolled{
+    background:rgba(250,248,244,0.96);
+    padding:16px 0;
+    box-shadow:0 8px 30px rgba(0,0,0,.06);
+    backdrop-filter:blur(10px);
+  }
+  .navbar.scrolled .nav-logo{color:var(--forest);}
+  .navbar.scrolled .nav-links a{color:var(--forest);}
+  .navbar.scrolled .nav-toggle span{background:var(--forest);}
+
+  /* ---------- hero ---------- */
+  .hero{
+    position:relative;width:100%;height:100vh;min-height:640px;
+    display:flex;align-items:center;justify-content:center;
+    overflow:hidden;
+  }
+  .hero-bg{
+    position:absolute;inset:0;width:100%;height:112%;top:-6%;
+    background-image:url('https://images.unsplash.com/photo-1449824913935-59a10b8d2000?q=80&w=1920&auto=format&fit=crop');
+    background-size:cover;background-position:center;
+    will-change:transform;
+  }
+  .hero::after{
+    content:'';position:absolute;inset:0;
+    background:linear-gradient(180deg,rgba(20,30,24,.42) 0%,rgba(20,30,24,.18) 38%,rgba(20,30,24,.55) 100%);
+  }
+  .hero-content{position:relative;z-index:2;text-align:center;color:var(--white-warm);padding:0 24px;}
+  .hero-content .eyebrow{color:var(--gold);}
+  .hero-content h1{
+    font-size:clamp(38px,6.2vw,84px);
+    font-weight:300;line-height:1.05;letter-spacing:-0.01em;
+    max-width:16ch;margin:0 auto 22px;
+  }
+  .hero-content h1 em{font-style:italic;color:var(--beige);}
+  .hero-content p{
+    font-size:clamp(15px,1.4vw,19px);font-weight:300;
+    max-width:44ch;margin:0 auto;color:rgba(250,248,244,.88);
+    letter-spacing:.01em;
+  }
+  .scroll-cue{
+    position:absolute;bottom:34px;left:50%;transform:translateX(-50%);
+    z-index:2;display:flex;flex-direction:column;align-items:center;gap:10px;
+    color:var(--white-warm);opacity:.8;
+  }
+  .scroll-cue span{font-size:10px;letter-spacing:.2em;text-transform:uppercase;}
+  .scroll-cue .line{width:1px;height:34px;background:linear-gradient(var(--gold),transparent);animation:scrollpulse 2s infinite;}
+  @keyframes scrollpulse{0%{opacity:.2;}50%{opacity:1;}100%{opacity:.2;}}
+
+  /* ---------- booking form ---------- */
+  .booking-wrap{position:relative;z-index:3;margin-top:-72px;padding:0 24px 0;}
+  .booking-form{
+    max-width:1050px;margin:0 auto;
+    background:var(--white-warm);
+    border-radius:3px;
+    box-shadow:0 30px 70px rgba(20,30,24,.22);
+    padding:34px 36px;
+    display:flex;flex-direction:column;gap:24px;
+  }
+  .booking-row{display:grid;gap:26px;align-items:end;}
+  .booking-row.contact{grid-template-columns:1fr 1fr;}
+  .booking-row.dates{grid-template-columns:1fr 1fr 1fr auto;}
+  .booking-note{font-size:12px;color:var(--olive);}
+  .booking-note.error{color:#a3453a;}
+  .booking-field{display:flex;flex-direction:column;gap:8px;}
+  .booking-field label{font-size:11px;text-transform:uppercase;letter-spacing:.14em;color:var(--olive);font-weight:500;}
+  .booking-field input,.booking-field select{
+    border:none;border-bottom:1px solid var(--beige);
+    padding:8px 2px;font-family:'Work Sans',sans-serif;font-size:15px;color:var(--forest);
+    background:transparent;transition:border-color .3s ease;
+  }
+  .booking-field input:focus,.booking-field select:focus{border-color:var(--gold);}
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:10px;
+    padding:15px 30px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:500;
+    border-radius:2px;transition:transform .4s var(--ease),background .4s ease,box-shadow .4s ease;
+    white-space:nowrap;
+  }
+  .btn-primary{background:var(--forest);color:var(--white-warm);}
+  .btn-primary:hover{background:var(--olive);transform:translateY(-3px);box-shadow:0 14px 26px rgba(47,74,58,.28);}
+  .btn-gold{background:var(--gold);color:var(--forest);}
+  .btn-gold:hover{background:#c8ab7a;transform:translateY(-3px);box-shadow:0 14px 26px rgba(184,154,104,.35);}
+  .btn-outline{border:1px solid var(--forest);color:var(--forest);}
+  .btn-outline:hover{background:var(--forest);color:var(--white-warm);}
+  .btn-outline-light{border:1px solid rgba(250,248,244,.6);color:var(--white-warm);}
+  .btn-outline-light:hover{background:var(--white-warm);color:var(--forest);}
+
+  @media(max-width:880px){
+    .booking-row.contact,.booking-row.dates{grid-template-columns:1fr 1fr;}
+    .booking-row.dates .btn{grid-column:1/-1;}
+  }
+  @media(max-width:520px){
+    .booking-row.contact,.booking-row.dates{grid-template-columns:1fr;}
+  }
+
+  /* ---------- section basics ---------- */
+  section{padding:130px 0;}
+  .section-beige{background:var(--beige);}
+  .section-forest{background:var(--forest);color:var(--white-warm);}
+  .center{text-align:center;}
+  .lead{
+    font-size:clamp(24px,3vw,38px);font-weight:300;line-height:1.35;
+    max-width:26ch;
+  }
+  .body-text{font-size:16px;color:var(--olive);max-width:52ch;font-weight:300;}
+  .section-forest .body-text{color:rgba(250,248,244,.75);}
+
+  /* ---------- institutional ---------- */
+  .about{display:grid;grid-template-columns:1fr 1fr;gap:90px;align-items:center;}
+  .about-copy .lead{margin-bottom:26px;color:var(--forest);}
+  .about-copy .lead em{font-style:italic;color:var(--gold);}
+  .about-img{position:relative;}
+  .about-img img{border-radius:2px;width:100%;height:560px;object-fit:cover;}
+  .about-img .frame{
+    position:absolute;top:26px;left:-26px;right:26px;bottom:-26px;
+    border:1px solid var(--gold);border-radius:2px;z-index:-1;
+  }
+  .stats{
+    margin-top:96px;
+    display:grid;grid-template-columns:repeat(4,1fr);
+    border-top:1px solid rgba(47,74,58,.14);
+  }
+  .stat{padding:44px 24px 0;border-left:1px solid rgba(47,74,58,.14);}
+  .stat:first-child{border-left:none;}
+  .stat .num{font-family:'Fraunces',serif;font-size:clamp(34px,4vw,52px);color:var(--forest);font-weight:400;}
+  .stat .num span{color:var(--gold);}
+  .stat .label{margin-top:10px;font-size:13px;letter-spacing:.04em;color:var(--olive);}
+
+  @media(max-width:900px){
+    .about{grid-template-columns:1fr;gap:48px;}
+    .about-img{order:-1;}
+    .stats{grid-template-columns:1fr 1fr;row-gap:36px;}
+    .stat:nth-child(3){border-left:none;}
+  }
+
+  /* ---------- diferenciais ---------- */
+  .diff-header{max-width:640px;margin:0 auto 80px;}
+  .diff-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(47,74,58,.12);}
+  .diff-card{
+    background:var(--white-warm);padding:52px 34px;text-align:left;
+    transition:background .5s ease;
+  }
+  .diff-card:hover{background:var(--beige);}
+  .diff-icon{width:38px;height:38px;margin-bottom:30px;color:var(--gold);}
+  .diff-card h3{font-size:21px;font-weight:500;margin-bottom:12px;color:var(--forest);}
+  .diff-card p{font-size:14.5px;color:var(--olive);font-weight:300;}
+  @media(max-width:900px){.diff-grid{grid-template-columns:1fr 1fr;}}
+  @media(max-width:560px){.diff-grid{grid-template-columns:1fr;}}
+
+  /* ---------- chalés ---------- */
+  .chale-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:36px;margin-top:70px;}
+  .chale-card{position:relative;overflow:hidden;border-radius:2px;height:560px;}
+  .chale-card img{
+    width:100%;height:100%;object-fit:cover;
+    transition:transform 1.2s var(--ease);
+  }
+  .chale-card:hover img{transform:scale(1.08);}
+  .chale-overlay{
+    position:absolute;inset:0;
+    background:linear-gradient(180deg,rgba(20,30,24,0) 40%,rgba(20,30,24,.86) 100%);
+  }
+  .chale-info{position:absolute;left:0;right:0;bottom:0;padding:36px;color:var(--white-warm);}
+  .chale-info .tag{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;display:block;}
+  .chale-info h3{font-size:28px;font-weight:400;margin-bottom:10px;}
+  .chale-info p{font-size:14px;color:rgba(250,248,244,.82);max-width:34ch;margin-bottom:22px;font-weight:300;}
+  @media(max-width:900px){.chale-grid{grid-template-columns:1fr;}.chale-card{height:460px;}}
+
+  /* ---------- experiências ---------- */
+  .exp-row{display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:90px;margin-bottom:130px;}
+  .exp-row:last-child{margin-bottom:0;}
+  .exp-row.reverse .exp-img{order:2;}
+  .exp-row.reverse .exp-copy{order:1;}
+  .exp-img{overflow:hidden;border-radius:2px;}
+  .exp-img img{width:100%;height:480px;object-fit:cover;transition:transform 1.4s var(--ease);}
+  .exp-img:hover img{transform:scale(1.06);}
+  .exp-copy .num{font-family:'Fraunces',serif;font-style:italic;color:var(--gold);font-size:15px;margin-bottom:18px;display:block;}
+  .exp-copy h3{font-size:clamp(26px,3vw,38px);font-weight:400;margin-bottom:20px;}
+  @media(max-width:900px){
+    .exp-row,.exp-row.reverse{grid-template-columns:1fr;gap:34px;margin-bottom:70px;}
+    .exp-row.reverse .exp-img,.exp-row.reverse .exp-copy{order:0;}
+    .exp-img img{height:340px;}
+  }
+
+  /* ---------- galeria ---------- */
+  .gallery-grid{
+    display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:220px;gap:14px;margin-top:70px;
+  }
+  .g-item{position:relative;overflow:hidden;border-radius:2px;cursor:pointer;}
+  .g-item img{width:100%;height:100%;object-fit:cover;transition:transform 1s var(--ease),filter .6s ease;}
+  .g-item:hover img{transform:scale(1.1);filter:brightness(.75);}
+  .g-item::after{
+    content:'+';position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+    font-family:'Fraunces',serif;font-size:34px;color:var(--white-warm);
+    opacity:0;transition:opacity .5s ease;
+  }
+  .g-item:hover::after{opacity:1;}
+  .g-item.tall{grid-row:span 2;}
+  .g-item.wide{grid-column:span 2;}
+  @media(max-width:900px){
+    .gallery-grid{grid-template-columns:repeat(2,1fr);grid-auto-rows:180px;}
+    .g-item.wide{grid-column:span 2;}
+  }
+  .lightbox{
+    position:fixed;inset:0;background:rgba(20,30,24,.96);z-index:3000;
+    display:flex;align-items:center;justify-content:center;
+    opacity:0;pointer-events:none;transition:opacity .4s ease;
+  }
+  .lightbox.active{opacity:1;pointer-events:auto;}
+  .lightbox img{max-width:86vw;max-height:82vh;object-fit:contain;border-radius:2px;}
+  .lightbox-close{position:absolute;top:32px;right:40px;color:var(--white-warm);font-size:32px;font-weight:300;background:none;}
+  .lightbox-nav{position:absolute;top:50%;transform:translateY(-50%);color:var(--white-warm);font-size:26px;padding:14px;}
+  .lightbox-prev{left:24px;}.lightbox-next{right:24px;}
+
+  /* ---------- avaliações ---------- */
+  .rating-hero{display:flex;align-items:baseline;gap:18px;justify-content:center;margin-bottom:70px;}
+  .rating-num{font-family:'Fraunces',serif;font-size:64px;color:var(--forest);}
+  .rating-stars{color:var(--gold);font-size:20px;letter-spacing:2px;}
+  .review-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;}
+  .review-card{
+    background:var(--white-warm);padding:40px 34px;border-radius:2px;
+    border:1px solid rgba(47,74,58,.1);
+  }
+  .review-stars{color:var(--gold);font-size:13px;letter-spacing:2px;margin-bottom:20px;}
+  .review-card p{font-size:15px;color:var(--forest);font-weight:300;margin-bottom:26px;font-style:italic;}
+  .review-author{display:flex;align-items:center;gap:14px;}
+  .avatar{
+    width:42px;height:42px;border-radius:50%;background:var(--olive);color:var(--white-warm);
+    display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-size:15px;
+  }
+  .review-author .name{font-size:14px;font-weight:500;}
+  .review-author .origin{font-size:12px;color:var(--olive);}
+  @media(max-width:900px){.review-grid{grid-template-columns:1fr;}}
+
+  /* ---------- localização ---------- */
+  .loc-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:70px;align-items:center;}
+  .loc-list{margin-top:36px;display:flex;flex-direction:column;gap:0;}
+  .loc-list li{
+    display:flex;justify-content:space-between;padding:18px 0;
+    border-bottom:1px solid rgba(47,74,58,.12);font-size:15px;
+  }
+  .loc-list li span:last-child{color:var(--gold);font-family:'Fraunces',serif;font-style:italic;}
+  .map-frame{border-radius:2px;overflow:hidden;height:480px;border:1px solid rgba(47,74,58,.12);}
+  .map-frame iframe{width:100%;height:100%;border:0;filter:grayscale(.15) sepia(.08);}
+  @media(max-width:900px){.loc-grid{grid-template-columns:1fr;gap:40px;}.map-frame{height:340px;}}
+
+  /* ---------- CTA final ---------- */
+  .final-cta{
+    position:relative;height:78vh;min-height:520px;
+    display:flex;align-items:center;justify-content:center;text-align:center;
+    overflow:hidden;
+  }
+  .final-cta-bg{
+    position:absolute;inset:0;width:100%;height:120%;top:-10%;
+    background-image:url('https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=1920&auto=format&fit=crop');
+    background-size:cover;background-position:center;
+  }
+  .final-cta::after{content:'';position:absolute;inset:0;background:rgba(20,30,24,.55);}
+  .final-cta-content{position:relative;z-index:2;color:var(--white-warm);padding:0 24px;}
+  .final-cta-content h2{font-size:clamp(30px,4.6vw,58px);font-weight:300;max-width:16ch;margin:0 auto 30px;}
+  .final-cta-content .btn{margin-top:6px;}
+
+  /* ---------- footer ---------- */
+  footer{background:var(--forest);color:rgba(250,248,244,.82);padding:100px 0 40px;}
+  .footer-grid{display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:60px;padding-bottom:70px;border-bottom:1px solid rgba(250,248,244,.14);}
+  .footer-logo{font-family:'Fraunces',serif;font-size:21px;letter-spacing:.04em;color:var(--white-warm);margin-bottom:18px;}
+  .footer-logo span{color:var(--gold);}
+  .footer-col h4{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:22px;font-weight:500;}
+  .footer-col li{margin-bottom:12px;font-size:14px;font-weight:300;}
+  .footer-col a:hover{color:var(--gold);}
+  .footer-bottom{padding-top:34px;display:flex;justify-content:space-between;font-size:12.5px;color:rgba(250,248,244,.5);flex-wrap:wrap;gap:12px;}
+  @media(max-width:900px){.footer-grid{grid-template-columns:1fr 1fr;row-gap:44px;}}
+
+  /* ---------- whatsapp float ---------- */
+  .wa-float{
+    position:fixed;bottom:28px;right:28px;z-index:900;
+    width:56px;height:56px;border-radius:50%;background:var(--forest);
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 10px 26px rgba(20,30,24,.35);
+    transition:transform .4s var(--ease);
+  }
+  .wa-float:hover{transform:scale(1.08);background:var(--olive);}
+  .wa-float svg{width:26px;height:26px;fill:var(--white-warm);}
+
+  /* ---------- mobile nav ---------- */
+  @media(max-width:860px){
+    .nav-links{
+      position:fixed;top:0;right:0;height:100vh;width:78%;max-width:340px;
+      background:var(--forest);flex-direction:column;justify-content:center;gap:34px;
+      padding:40px;transform:translateX(100%);transition:transform .5s var(--ease);
+    }
+    .nav-links.open{transform:translateX(0);}
+    .nav-links a{color:var(--white-warm) !important;}
+    .nav-cta{display:none;}
+    .nav-toggle{display:flex;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ================= NAVBAR ================= -->
+<nav class="navbar" id="navbar">
+  <div class="container">
+    <a href="#top" class="nav-logo">CONSTELA<span>ÇÃO</span></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#sobre">A Pousada</a></li>
+      <li><a href="#chales">Chalés</a></li>
+      <li><a href="#experiencias">Experiências</a></li>
+      <li><a href="#galeria">Galeria</a></li>
+      <li><a href="#localizacao">Localização</a></li>
+    </ul>
+    <a href="#reservar" class="nav-cta">Reservar</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Abrir menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- ================= HERO ================= -->
+<header class="hero" id="top">
+  <div class="hero-bg" id="heroBg"></div>
+  <div class="hero-content">
+    <span class="eyebrow">Serra Gaúcha · Mata Atlântica preservada</span>
+    <h1>Silêncio que se vê,<br><em>natureza que se sente.</em></h1>
+    <p>Chalés de charme entre montanhas e floresta nativa, a poucas horas da rotina. Uma pausa de verdade, sem pressa nenhuma.</p>
+  </div>
+  <div class="scroll-cue"><span>Role</span><div class="line"></div></div>
+</header>
+
+<div class="booking-wrap" id="reservar">
+  <form class="booking-form reveal" id="bookingForm">
+    <div class="booking-row contact">
+      <div class="booking-field">
+        <label for="guestName">Nome completo</label>
+        <input type="text" id="guestName" name="guestName" placeholder="Seu nome" required>
+      </div>
+      <div class="booking-field">
+        <label for="guestContact">WhatsApp ou e-mail</label>
+        <input type="text" id="guestContact" name="guestContact" placeholder="(00) 00000-0000" required>
+      </div>
+    </div>
+    <div class="booking-row dates">
+      <div class="booking-field">
+        <label for="checkin">Check-in</label>
+        <input type="date" id="checkin" name="checkin" required>
+      </div>
+      <div class="booking-field">
+        <label for="checkout">Check-out</label>
+        <input type="date" id="checkout" name="checkout" required>
+      </div>
+      <div class="booking-field">
+        <label for="guests">Hóspedes</label>
+        <select id="guests" name="guests">
+          <option>1 hóspede</option>
+          <option selected>2 hóspedes</option>
+          <option>3 hóspedes</option>
+          <option>4 hóspedes</option>
+          <option>5+ hóspedes</option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-primary" id="bookingSubmit">Ver Disponibilidade</button>
+    </div>
+    <p class="booking-note" id="bookingNote"></p>
+  </form>
+</div>
+
+<!-- ================= SOBRE / INSTITUCIONAL ================= -->
+<section id="sobre">
+  <div class="container about">
+    <div class="about-copy reveal">
+      <span class="eyebrow">A Pousada</span>
+      <p class="lead">Construímos a Constelação para desacelerar o essencial: <em>o tempo</em>, o silêncio e o contato com a mata que nos cerca.</p>
+      <p class="body-text">Cada chalé foi erguido respeitando o relevo e a vegetação nativa, com materiais locais e uma arquitetura discreta. Não há pressa aqui — só o som do vento entre os ipês e a certeza de que este lugar foi feito para ser lembrado.</p>
+    </div>
+    <div class="about-img reveal reveal-delay-1">
+      <div class="frame"></div>
+      <img src="https://images.unsplash.com/photo-1518602164578-cd0074062767?q=80&w=1200&auto=format&fit=crop" alt="Chalé de madeira da Constelação entre as árvores" loading="lazy">
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="stats reveal reveal-delay-2">
+      <div class="stat"><div class="num"><span>12</span></div><div class="label">Chalés exclusivos</div></div>
+      <div class="stat"><div class="num"><span>40</span> ha</div><div class="label">De mata nativa preservada</div></div>
+      <div class="stat"><div class="num">98<span>%</span></div><div class="label">De avaliações positivas</div></div>
+      <div class="stat"><div class="num"><span>15</span> anos</div><div class="label">Cuidando deste lugar</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="branch-divider reveal" data-branch>
+  <svg viewBox="0 0 220 90" xmlns="http://www.w3.org/2000/svg">
+    <path d="M10 45 C60 45 70 20 110 20 C150 20 160 45 210 45"/>
+    <path d="M70 32 C78 20 88 16 96 8"/>
+    <path d="M70 32 C76 42 82 48 90 54"/>
+    <path d="M140 32 C132 20 122 16 114 8"/>
+    <path d="M140 32 C146 42 152 48 160 54"/>
+    <circle cx="110" cy="20" r="2.6"/>
+  </svg>
+</div>
+
+<!-- ================= DIFERENCIAIS ================= -->
+<section class="section-beige">
+  <div class="container">
+    <div class="diff-header center reveal">
+      <span class="eyebrow">Diferenciais</span>
+      <h2 class="lead" style="margin:0 auto;">O que torna uma estadia inesquecível</h2>
+    </div>
+  </div>
+  <div class="container">
+    <div class="diff-grid reveal reveal-delay-1">
+      <div class="diff-card">
+        <svg class="diff-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M20 36V16"/><path d="M20 16C20 8 26 4 33 4c0 9-6 14-13 14"/><path d="M20 22C20 15 15 11 8 11c0 8 5 13 12 13"/></svg>
+        <h3>Natureza</h3>
+        <p>Mata Atlântica preservada, trilhas exclusivas e nascentes de água a poucos passos da porta.</p>
+      </div>
+      <div class="diff-card">
+        <svg class="diff-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="5" y="18" width="30" height="13" rx="2"/><path d="M8 18v-4a4 4 0 0 1 4-4h16a4 4 0 0 1 4 4v4"/><path d="M5 26h30"/></svg>
+        <h3>Conforto</h3>
+        <p>Lareira, hidromassagem e cama premium: o requinte de um resort com a alma de um refúgio.</p>
+      </div>
+      <div class="diff-card">
+        <svg class="diff-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="20" cy="14" r="6"/><path d="M20 20v6"/><rect x="14" y="26" width="12" height="10" rx="1.5"/></svg>
+        <h3>Privacidade</h3>
+        <p>Chalés isolados entre si, sem vizinhos à vista — só você, a mata e o silêncio.</p>
+      </div>
+      <div class="diff-card">
+        <svg class="diff-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M20 4l4 10 10 1-8 7 3 11-9-6-9 6 3-11-8-7 10-1z"/></svg>
+        <h3>Experiências Exclusivas</h3>
+        <p>Fogueiras privativas, jantares ao ar livre e roteiros pensados para cada tipo de pausa.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CHALÉS ================= -->
+<section id="chales">
+  <div class="container">
+    <div class="center reveal" style="max-width:640px;margin:0 auto;">
+      <span class="eyebrow">Acomodações</span>
+      <h2 class="lead" style="margin:0 auto;">Três chalés, três formas de desconectar</h2>
+    </div>
+    <div class="chale-grid">
+      <article class="chale-card reveal">
+        <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?q=80&w=1000&auto=format&fit=crop" alt="Chalé Angelim" loading="lazy">
+        <div class="chale-overlay"></div>
+        <div class="chale-info">
+          <span class="tag">Para casais</span>
+          <h3>Chalé Angelim</h3>
+          <p>Lareira, hidro externa e varanda voltada para o vale — pensado para dois.</p>
+          <a href="#" class="btn btn-outline-light">Conhecer</a>
+        </div>
+      </article>
+      <article class="chale-card reveal reveal-delay-1">
+        <img src="https://images.unsplash.com/photo-1587061949409-02df41d5e562?q=80&w=1000&auto=format&fit=crop" alt="Chalé Jequitibá" loading="lazy">
+        <div class="chale-overlay"></div>
+        <div class="chale-info">
+          <span class="tag">Até 4 pessoas</span>
+          <h3>Chalé Jequitibá</h3>
+          <p>Mezanino, lareira dupla e deque privativo de frente para a mata.</p>
+          <a href="#" class="btn btn-outline-light">Conhecer</a>
+        </div>
+      </article>
+      <article class="chale-card reveal reveal-delay-2">
+        <img src="https://images.unsplash.com/photo-1611892440504-42a792e24d32?q=80&w=1000&auto=format&fit=crop" alt="Chalé Sucupira" loading="lazy">
+        <div class="chale-overlay"></div>
+        <div class="chale-info">
+          <span class="tag">Suíte máster</span>
+          <h3>Chalé Sucupira</h3>
+          <p>Nosso maior chalé, com banheira de imersão e vista panorâmica das montanhas.</p>
+          <a href="#" class="btn btn-outline-light">Conhecer</a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<div class="branch-divider reveal" data-branch>
+  <svg viewBox="0 0 220 90" xmlns="http://www.w3.org/2000/svg">
+    <path d="M10 45 C60 45 70 20 110 20 C150 20 160 45 210 45"/>
+    <path d="M70 32 C78 20 88 16 96 8"/>
+    <path d="M70 32 C76 42 82 48 90 54"/>
+    <path d="M140 32 C132 20 122 16 114 8"/>
+    <path d="M140 32 C146 42 152 48 160 54"/>
+    <circle cx="110" cy="20" r="2.6"/>
+  </svg>
+</div>
+
+<!-- ================= EXPERIÊNCIAS ================= -->
+<section id="experiencias" class="section-beige">
+  <div class="container">
+    <div class="center reveal" style="max-width:640px;margin:0 auto 100px;">
+      <span class="eyebrow">Experiências</span>
+      <h2 class="lead" style="margin:0 auto;">Momentos criados para ficar</h2>
+    </div>
+
+    <div class="exp-row reveal">
+      <div class="exp-img"><img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?q=80&w=1000&auto=format&fit=crop" alt="Pacote Romântico" loading="lazy"></div>
+      <div class="exp-copy">
+        <span class="num">Pacote Romântico</span>
+        <h3>Uma noite pensada a dois</h3>
+        <p class="body-text">Decoração especial, espumante e jantar reservado no deque do seu chalé, sob o céu da serra.</p>
+      </div>
+    </div>
+
+    <div class="exp-row reverse reveal">
+      <div class="exp-img"><img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=1000&auto=format&fit=crop" alt="Café Especial" loading="lazy"></div>
+      <div class="exp-copy">
+        <span class="num">Café Especial</span>
+        <h3>A manhã começa devagar</h3>
+        <p class="body-text">Cesta de café colonial servida no seu chalé, com pães artesanais e produtos da região.</p>
+      </div>
+    </div>
+
+    <div class="exp-row reveal">
+      <div class="exp-img"><img src="https://images.unsplash.com/photo-1475619572116-5ec9d3d0f2f8?q=80&w=1000&auto=format&fit=crop" alt="Fogueira Privativa" loading="lazy"></div>
+      <div class="exp-copy">
+        <span class="num">Fogueira Privativa</span>
+        <h3>A noite pede uma boa conversa</h3>
+        <p class="body-text">Sua própria fogueira, mantas e um kit de queijos e vinhos, longe de qualquer outro hóspede.</p>
+      </div>
+    </div>
+
+    <div class="exp-row reverse reveal">
+      <div class="exp-img"><img src="https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?q=80&w=1000&auto=format&fit=crop" alt="Pôr do Sol" loading="lazy"></div>
+      <div class="exp-copy">
+        <span class="num">Pôr do Sol</span>
+        <h3>O melhor horário do dia</h3>
+        <p class="body-text">Mirante exclusivo com poltronas e taça de vinho para acompanhar o entardecer sobre o vale.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= GALERIA ================= -->
+<section id="galeria">
+  <div class="container">
+    <div class="center reveal" style="max-width:640px;margin:0 auto;">
+      <span class="eyebrow">Galeria</span>
+      <h2 class="lead" style="margin:0 auto;">Um vislumbre da Constelação</h2>
+    </div>
+    <div class="gallery-grid reveal reveal-delay-1" id="galleryGrid">
+      <div class="g-item tall"><img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=800&auto=format&fit=crop" alt="Floresta ao amanhecer" loading="lazy"></div>
+      <div class="g-item"><img src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=800&auto=format&fit=crop" alt="Cadeia de montanhas" loading="lazy"></div>
+      <div class="g-item wide"><img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?q=80&w=1200&auto=format&fit=crop" alt="Piscina com vista para a natureza" loading="lazy"></div>
+      <div class="g-item"><img src="https://images.unsplash.com/photo-1502082553048-f009c37129b9?q=80&w=800&auto=format&fit=crop" alt="Névoa na mata" loading="lazy"></div>
+      <div class="g-item"><img src="https://images.unsplash.com/photo-1449158743715-0a90ebb8331d?q=80&w=800&auto=format&fit=crop" alt="Chalé ao entardecer" loading="lazy"></div>
+      <div class="g-item wide"><img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=1200&auto=format&fit=crop" alt="Montanhas da Serra Gaúcha" loading="lazy"></div>
+      <div class="g-item tall"><img src="https://images.unsplash.com/photo-1476231682828-37e571bc172f?q=80&w=800&auto=format&fit=crop" alt="Céu estrelado sobre as montanhas" loading="lazy"></div>
+      <div class="g-item"><img src="https://images.unsplash.com/photo-1470770903676-69b98201ea1c?q=80&w=800&auto=format&fit=crop" alt="Luz entre as árvores" loading="lazy"></div>
+    </div>
+  </div>
+</section>
+
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" id="lightboxClose">&times;</button>
+  <button class="lightbox-nav lightbox-prev" id="lightboxPrev">&#8249;</button>
+  <img src="" alt="" id="lightboxImg">
+  <button class="lightbox-nav lightbox-next" id="lightboxNext">&#8250;</button>
+</div>
+
+<div class="branch-divider reveal" data-branch>
+  <svg viewBox="0 0 220 90" xmlns="http://www.w3.org/2000/svg">
+    <path d="M10 45 C60 45 70 20 110 20 C150 20 160 45 210 45"/>
+    <path d="M70 32 C78 20 88 16 96 8"/>
+    <path d="M70 32 C76 42 82 48 90 54"/>
+    <path d="M140 32 C132 20 122 16 114 8"/>
+    <path d="M140 32 C146 42 152 48 160 54"/>
+    <circle cx="110" cy="20" r="2.6"/>
+  </svg>
+</div>
+
+<!-- ================= AVALIAÇÕES ================= -->
+<section class="section-beige">
+  <div class="container">
+    <div class="rating-hero reveal">
+      <span class="rating-num">4.9</span>
+      <div>
+        <div class="rating-stars">★★★★★</div>
+        <div style="font-size:13px;color:var(--olive);margin-top:4px;">baseado em 312 avaliações</div>
+      </div>
+    </div>
+    <div class="review-grid reveal reveal-delay-1">
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p>"Chegamos cansados da cidade e saímos outras pessoas. O silêncio ali é quase palpável."</p>
+        <div class="review-author"><div class="avatar">M</div><div><div class="name">Mariana C.</div><div class="origin">São Paulo, SP</div></div></div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p>"A fogueira privativa foi o ponto alto. Atendimento discreto e extremamente atencioso."</p>
+        <div class="review-author"><div class="avatar">R</div><div><div class="name">Rafael T.</div><div class="origin">Curitiba, PR</div></div></div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p>"Nunca vi um chalé tão bem integrado à mata. Sensação de estar em outro mundo."</p>
+        <div class="review-author"><div class="avatar">C</div><div><div class="name">Camila F.</div><div class="origin">Porto Alegre, RS</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= LOCALIZAÇÃO ================= -->
+<section id="localizacao">
+  <div class="container loc-grid">
+    <div class="reveal">
+      <span class="eyebrow">Localização</span>
+      <h2 class="lead" style="margin-bottom:8px;">No coração da Serra Gaúcha</h2>
+      <p class="body-text" style="margin-top:18px;">Vale do Quilombo, a poucos minutos do centro de Gramado — perto o bastante para conveniência, longe o suficiente para o silêncio.</p>
+      <ul class="loc-list">
+        <li><span>Centro de Gramado</span><span>15 min</span></li>
+        <li><span>Canela</span><span>25 min</span></li>
+        <li><span>Aeroporto de Caxias do Sul</span><span>50 min</span></li>
+        <li><span>Porto Alegre</span><span>2h30</span></li>
+      </ul>
+      <a href="https://www.google.com/maps/dir/?api=1&destination=Gramado,RS" target="_blank" rel="noopener" class="btn btn-primary" style="margin-top:34px;">Traçar Rota</a>
+    </div>
+    <div class="map-frame reveal reveal-delay-1">
+      <iframe src="https://www.google.com/maps?q=Gramado,RS&output=embed" loading="lazy" allowfullscreen title="Mapa de localização da Constelação"></iframe>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CTA FINAL ================= -->
+<section class="final-cta">
+  <div class="final-cta-bg" id="ctaBg"></div>
+  <div class="final-cta-content reveal">
+    <span class="eyebrow">Sua fuga da rotina começa aqui</span>
+    <h2>Algumas pausas a gente carrega para sempre.</h2>
+    <a href="#reservar" class="btn btn-gold">Reservar Agora</a>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">CONSTELA<span>ÇÃO</span></div>
+        <p style="font-size:14px;font-weight:300;max-width:32ch;color:rgba(250,248,244,.65);">Pousada & chalés de montanha em meio à Mata Atlântica preservada, na Serra Gaúcha.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Contato</h4>
+        <ul>
+          <li><a href="tel:+555499999999">+55 (54) 99999-9999</a></li>
+          <li><a href="mailto:reservas@pousadaconstelacao.com.br">reservas@pousadaconstelacao.com.br</a></li>
+          <li><a href="#" target="_blank" rel="noopener">Falar no WhatsApp</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Endereço</h4>
+        <ul>
+          <li>Vale do Quilombo, s/n</li>
+          <li>Gramado — RS, Brasil</li>
+          <li>CEP 95670-000</li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Redes Sociais</h4>
+        <ul>
+          <li><a href="#" target="_blank" rel="noopener">Instagram</a></li>
+          <li><a href="#" target="_blank" rel="noopener">Facebook</a></li>
+          <li><a href="#" target="_blank" rel="noopener">Pinterest</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Pousada Constelação. Todos os direitos reservados.</span>
+      <a href="#">Política de Privacidade</a>
+    </div>
+  </div>
+</footer>
+
+<a class="wa-float" href="https://wa.me/555499999999" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+  <svg viewBox="0 0 32 32"><path d="M16.02 3C9.4 3 4 8.36 4 15c0 2.36.68 4.55 1.86 6.4L4 29l7.83-1.8A11.9 11.9 0 0 0 16.02 27C22.64 27 28 21.64 28 15S22.64 3 16.02 3zm0 21.7c-1.98 0-3.83-.55-5.4-1.5l-.39-.23-4.13.95.98-4.02-.25-.4A9.63 9.63 0 0 1 6.3 15c0-5.36 4.36-9.7 9.72-9.7 5.35 0 9.7 4.34 9.7 9.7s-4.35 9.7-9.7 9.7zm5.32-7.27c-.29-.15-1.72-.85-1.99-.95-.27-.1-.46-.15-.66.15-.2.29-.76.95-.93 1.14-.17.2-.34.22-.63.07-.29-.14-1.22-.45-2.32-1.44-.86-.76-1.44-1.71-1.6-2-.17-.29-.02-.44.13-.59.13-.13.29-.34.44-.51.15-.17.19-.29.29-.49.1-.2.05-.37-.02-.51-.07-.15-.66-1.59-.9-2.18-.24-.57-.48-.49-.66-.5h-.56c-.2 0-.51.07-.78.37-.27.29-1.02 1-1.02 2.43s1.05 2.82 1.19 3.02c.15.2 2.06 3.14 5 4.4.7.3 1.24.48 1.67.62.7.22 1.34.19 1.84.12.56-.08 1.72-.7 1.96-1.38.24-.68.24-1.26.17-1.38-.07-.12-.26-.2-.55-.34z"/></svg>
+</a>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script>
+  // ============================================================
+  // CONFIGURAÇÃO DO BANCO DE DADOS (Supabase)
+  // Substitua os dois valores abaixo pelos dados do SEU projeto
+  // Supabase. Veja as instruções que a Claude te passou no chat.
+  // ============================================================
+  const SUPABASE_URL = 'https://glisbzzzewwexevzxfkk.supabase.co';
+  const SUPABASE_ANON_KEY = 'sb_publishable_QbmQVc70qdsN3Y5F3GM0pQ_TJBNpUlU';
+
+  let supabaseClient = null;
+  if (SUPABASE_URL.startsWith('http') && SUPABASE_ANON_KEY.length > 10) {
+    supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  }
+
+  // ---- Navbar scroll state ----
+  const navbar = document.getElementById('navbar');
+  const heroBg = document.getElementById('heroBg');
+  const ctaBg = document.getElementById('ctaBg');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function onScroll(){
+    const y = window.scrollY;
+    navbar.classList.toggle('scrolled', y > 60);
+    if(!reduceMotion){
+      if(heroBg) heroBg.style.transform = `translateY(${y * 0.18}px)`;
+      const cta = document.querySelector('.final-cta');
+      if(cta && ctaBg){
+        const rect = cta.getBoundingClientRect();
+        if(rect.top < window.innerHeight && rect.bottom > 0){
+          ctaBg.style.transform = `translateY(${rect.top * -0.12}px)`;
+        }
+      }
+    }
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+
+  // ---- Mobile nav toggle ----
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
+  navToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+
+  // ---- Reveal on scroll ----
+  const revealEls = document.querySelectorAll('.reveal, .branch-divider');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        entry.target.classList.add('in-view');
+        io.unobserve(entry.target);
+      }
+    });
+  }, {threshold:0.15});
+  revealEls.forEach(el => io.observe(el));
+
+  // ---- Lightbox gallery ----
+  const galleryImgs = Array.from(document.querySelectorAll('#galleryGrid img'));
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightboxImg');
+  let currentIndex = 0;
+
+  function openLightbox(i){
+    currentIndex = i;
+    lightboxImg.src = galleryImgs[i].src.replace('w=800','w=1600');
+    lightboxImg.alt = galleryImgs[i].alt;
+    lightbox.classList.add('active');
+  }
+  function closeLightbox(){ lightbox.classList.remove('active'); }
+  function showRelative(delta){
+    currentIndex = (currentIndex + delta + galleryImgs.length) % galleryImgs.length;
+    lightboxImg.src = galleryImgs[currentIndex].src.replace('w=800','w=1600');
+    lightboxImg.alt = galleryImgs[currentIndex].alt;
+  }
+  galleryImgs.forEach((img, i) => img.parentElement.addEventListener('click', () => openLightbox(i)));
+  document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+  document.getElementById('lightboxPrev').addEventListener('click', () => showRelative(-1));
+  document.getElementById('lightboxNext').addEventListener('click', () => showRelative(1));
+  lightbox.addEventListener('click', (e) => { if(e.target === lightbox) closeLightbox(); });
+  document.addEventListener('keydown', (e) => {
+    if(!lightbox.classList.contains('active')) return;
+    if(e.key === 'Escape') closeLightbox();
+    if(e.key === 'ArrowLeft') showRelative(-1);
+    if(e.key === 'ArrowRight') showRelative(1);
+  });
+
+  // ---- Booking form: sensible min dates ----
+  const checkin = document.getElementById('checkin');
+  const checkout = document.getElementById('checkout');
+  const today = new Date().toISOString().split('T')[0];
+  checkin.min = today;
+  checkin.addEventListener('change', () => { checkout.min = checkin.value; });
+
+  // ---- Booking form: save reservation to the database ----
+  const bookingForm = document.getElementById('bookingForm');
+  const bookingNote = document.getElementById('bookingNote');
+  const bookingSubmit = document.getElementById('bookingSubmit');
+
+  bookingForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    bookingNote.className = 'booking-note';
+    bookingNote.textContent = '';
+
+    const payload = {
+      guest_name: document.getElementById('guestName').value.trim(),
+      guest_contact: document.getElementById('guestContact').value.trim(),
+      check_in: checkin.value,
+      check_out: checkout.value,
+      guests: document.getElementById('guests').value,
+      created_at: new Date().toISOString()
+    };
+
+    if (new Date(payload.check_out) <= new Date(payload.check_in)) {
+      bookingNote.textContent = 'A data de check-out precisa ser depois do check-in.';
+      bookingNote.className = 'booking-note error';
+      return;
+    }
+
+    if (!supabaseClient) {
+      bookingNote.textContent = 'O banco de dados ainda não foi configurado neste site (veja o README).';
+      bookingNote.className = 'booking-note error';
+      return;
+    }
+
+    bookingSubmit.textContent = 'Enviando...';
+    bookingSubmit.disabled = true;
+
+    const { error } = await supabaseClient.from('reservas').insert([payload]);
+
+    bookingSubmit.disabled = false;
+    bookingSubmit.textContent = 'Ver Disponibilidade';
+
+    if (error) {
+      console.error(error);
+      bookingNote.textContent = 'Não foi possível enviar sua reserva agora. Tente novamente em instantes.';
+      bookingNote.className = 'booking-note error';
+      return;
+    }
+
+    bookingNote.textContent = 'Reserva enviada! Em breve entraremos em contato para confirmar.';
+    bookingForm.reset();
+    checkin.min = today;
+  });
+</script>
+</body>
+</html>
