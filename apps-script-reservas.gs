@@ -6,7 +6,7 @@
 
 // Troque por uma chave secreta sua, difícil de adivinhar.
 // É ela que protege o painel de admin contra acesso indevido.
-var ADMIN_KEY = 'Admin@0312';
+var ADMIN_KEY = 'Admin';
 
 var SHEET_NAME = 'Reservas';
 
