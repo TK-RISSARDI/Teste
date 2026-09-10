@@ -9,10 +9,11 @@
 var ADMIN_KEY = 'Admin';
 
 var SHEET_NAME = 'Reservas';
+var SPREADSHEET_ID = '1MTmXeWpegG0NSMNXrPpuyspOyowwmVDxfUXEVdJBpJY';
 
 // Recebe uma nova reserva do formulário do site e grava na planilha
 function doPost(e) {
-  var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(SHEET_NAME);
+  var sheet = SpreadsheetApp.openById(SPREADSHEET_ID).getSheetByName(SHEET_NAME);
   var data = JSON.parse(e.postData.contents);
 
   sheet.appendRow([
@@ -38,7 +39,7 @@ function doGet(e) {
       .setMimeType(ContentService.MimeType.JSON);
   }
 
-  var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(SHEET_NAME);
+  var sheet = SpreadsheetApp.openById(SPREADSHEET_ID).getSheetByName(SHEET_NAME);
   var values = sheet.getDataRange().getValues();
   var headers = values.shift();
 
